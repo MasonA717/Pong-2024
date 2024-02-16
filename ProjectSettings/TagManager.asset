@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ball
+  - Wall
+  - Paddle
+  - PowerUp
   layers:
   - Default
   - TransparentFX

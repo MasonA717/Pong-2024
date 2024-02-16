@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class ScoreTracker : MonoBehaviour
 {
     public Ball ball;
-    public TextMeshPro P1ScoreText, P2ScoreText;
+    public Text P1ScoreText, P2ScoreText;
 
     private int P1Score = 0;
     private int P2Score = 0;
@@ -18,7 +18,8 @@ public class ScoreTracker : MonoBehaviour
         Debug.Log("Player 1 scores! Current score: Player 1 - " + P1Score + ", Player 2 - " + P2Score);
 
         CheckGameEnd();
-        ball.ResetPosition(true); // Sending the ball to Player 1
+        ball.ResetPosition();
+        UpdateScoreColor();
     }
 
     public void P2Scores()
@@ -29,7 +30,8 @@ public class ScoreTracker : MonoBehaviour
         Debug.Log("Player 2 scores! Current score: Player 1 - " + P1Score + ", Player 2 - " + P2Score);
 
         CheckGameEnd();
-        ball.ResetPosition(false); // Sending the ball to Player 2
+        ball.ResetPosition();
+        UpdateScoreColor();
     }
 
     private void CheckGameEnd()
@@ -46,8 +48,7 @@ public class ScoreTracker : MonoBehaviour
         {
             Debug.Log("Game Over, left paddle wins!");
         }
-        else
-        {
+        else {
             Debug.Log("Game Over, right paddle wins!");
         }
 
@@ -56,5 +57,40 @@ public class ScoreTracker : MonoBehaviour
         P2Score = 0;
         P1ScoreText.text = "0";
         P2ScoreText.text = "0";
+    }
+
+    private void UpdateScoreColor()
+    {
+        // Change color based on the score range
+        ChangeScoreColor(P1ScoreText, P1Score);
+        ChangeScoreColor(P2ScoreText, P2Score);
+    }
+
+    private void ChangeScoreColor(Text scoreText, int score)
+    {
+        Color color;
+
+        if (score == 0)
+        {
+            color = Color.white;
+        }
+        else if (score >= 2 && score <= 4)
+        {
+            color = Color.blue;
+        }
+        else if (score >= 5 && score <= 7)
+        {
+            color = Color.green;
+        }
+        else if (score >= 8 && score <= 10)
+        {
+            color = Color.red;
+        }
+        else
+        {
+            color = Color.white;
+        }
+
+        scoreText.color = color;
     }
 }
